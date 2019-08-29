@@ -5,6 +5,7 @@ import { HeroesService } from 'src/app/services/heroes.service';
 
 import swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heore',
@@ -13,9 +14,18 @@ import { Observable } from 'rxjs';
 })
 export class HeoreComponent implements OnInit {
   heroe: HeroeModel = new HeroeModel();
-  constructor( private heroesService: HeroesService ) { }
+  constructor( private heroesService: HeroesService, private route: ActivatedRoute ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if ( id !== 'nuevo') {
+      this.heroesService.getHeroe( id )
+      .subscribe( (resp: HeroeModel) => {
+        this.heroe = resp;
+        this.heroe.id = id;
+      });
+    }
   }
 
   guardar( form:NgForm ) {
