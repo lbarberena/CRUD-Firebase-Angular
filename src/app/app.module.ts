@@ -5,15 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeoreComponent } from './pages/heore/heore.component';
-import { HeoresComponent } from './pages/heores/heores.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { HeroesComponent } from './components/heroes/heroes.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeoreComponent,
-    HeoresComponent,
+    HeroComponent,
+    HeroesComponent,
     NavbarComponent
   ],
   imports: [

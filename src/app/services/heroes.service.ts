@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HeroeModel } from '../models/heroe.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { HeroModel } from '../helpers/models/hero.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,51 +9,60 @@ import { map } from 'rxjs/operators';
 })
 export class HeroesService {
 
-  private url = 'https://crud-angular-course.firebaseio.com';
+  // URL instantiated from environment variables
+  private url = `${environment.apiURL}`;
+
+  // When you use your own API without firebase, you'll need these httpOptions for Headers
+  /*httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };*/
 
   constructor( private http: HttpClient ) { }
 
-  crearHeroe( heroe: HeroeModel ) {
-    return this.http.post(`${ this.url }/heroes.json`, heroe)
+  createHero( hero: HeroModel ) {
+    return this.http.post(`${ this.url }/heroes.json`, hero)
     .pipe(
-      map( (resp:any) => {
-        heroe.id = resp.name;
-        return heroe;
+      map( (resp: any) => {
+        hero.id = resp.name;
+        return hero;
     }));
   }
 
-  actualizarHeroe( heroe: HeroeModel ) {
-    const heroeTemp = {
-      ...heroe
+  updateHero( hero: HeroModel ) {
+    const heroTemp = {
+      ...hero
     };
 
-    delete heroeTemp.id;
+    delete heroTemp.id;
 
-    return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`, heroeTemp);
+    return this.http.put(`${ this.url }/heroes/${ hero.id }.json`, heroTemp);
   }
 
-  borrarHeroe( id: string ) {
+  deleteHero( id: string ) {
     return this.http.delete(`${ this.url }/heroes/${ id }.json`);
   }
 
-  getHeroe( id: string ) {
+  getHero( id: string ) {
     return this.http.get(`${ this.url }/heroes/${ id }.json`);
   }
 
   getHeroes() {
     return this.http.get(`${ this.url }/heroes.json`)
     .pipe(
-      map( this.crearArreglo)
+      map( this.createArray )
     );
   }
 
-  private crearArreglo( heroesObj: object ) {
-    const heroes: HeroeModel[] = [];
+  // We create the array, so we can map the response of the GET petition function
+  private createArray( heroesObj: object ) {
+    const heroes: HeroModel[] = [];
 
     Object.keys( heroesObj ).forEach( key => {
-      const heroe: HeroeModel = heroesObj[key];
-      heroe.id = key;
-      heroes.push( heroe );
+      const hero: HeroModel = heroesObj[key];
+      hero.id = key;
+      heroes.push( hero );
     });
 
     if ( heroesObj === null ) {
@@ -60,7 +70,6 @@ export class HeroesService {
     }
 
     return heroes;
-
   }
 
 }

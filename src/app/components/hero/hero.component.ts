@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroeModel } from 'src/app/models/heroe.model';
+import { HeroModel } from 'src/app/helpers/models/hero.model';
 import { NgForm } from '@angular/forms';
 import { HeroesService } from 'src/app/services/heroes.service';
 
@@ -8,27 +8,27 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-heore',
-  templateUrl: './heore.component.html',
-  styleUrls: ['./heore.component.css']
+  selector: 'app-hero',
+  templateUrl: './hero.component.html',
+  styleUrls: ['./hero.component.css']
 })
-export class HeoreComponent implements OnInit {
-  heroe: HeroeModel = new HeroeModel();
+export class HeroComponent implements OnInit {
+  hero: HeroModel = new HeroModel();
   constructor( private heroesService: HeroesService, private route: ActivatedRoute ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
     if ( id !== 'nuevo') {
-      this.heroesService.getHeroe( id )
-      .subscribe( (resp: HeroeModel) => {
-        this.heroe = resp;
-        this.heroe.id = id;
+      this.heroesService.getHero( id )
+      .subscribe( (resp: HeroModel) => {
+        this.hero = resp;
+        this.hero.id = id;
       });
     }
   }
 
-  guardar( form:NgForm ) {
+  save(form: NgForm ) {
     if ( form.invalid ) {
       return;
     }
@@ -41,21 +41,21 @@ export class HeoreComponent implements OnInit {
     });
     swal.showLoading();
 
-    let peticion: Observable<any>;
+    let petition: Observable<any>;
 
-    if( this.heroe.id ) {
-      peticion = this.heroesService.actualizarHeroe( this.heroe );
+    if ( this.hero.id ) {
+      petition = this.heroesService.updateHero( this.hero );
     } else {
-      peticion = this.heroesService.crearHeroe( this.heroe );
+      petition = this.heroesService.createHero( this.hero );
     }
 
-    peticion.subscribe( resp => {
+    petition.subscribe( resp => {
       swal.fire({
-        title: this.heroe.nombre,
-      text: 'Se actualizó correctamente',
-      type: 'success'
+        title: this.hero.name,
+        text: 'Se actualizó correctamente',
+        type: 'success'
       });
-    })
+    });
   }
 
 }
