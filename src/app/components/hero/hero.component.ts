@@ -19,7 +19,7 @@ export class HeroComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    if ( id !== 'nuevo') {
+    if ( id !== 'new') {
       this.heroesService.getHero( id )
       .subscribe( (resp: HeroModel) => {
         this.hero = resp;
