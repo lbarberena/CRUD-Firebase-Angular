@@ -4,7 +4,7 @@ export class HeroModel {
     power: string;
     alive: boolean;
 
-    constructor(){
+    constructor() {
         this.alive = true;
     }
 }

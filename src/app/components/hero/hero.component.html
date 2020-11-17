@@ -11,44 +11,6 @@
 
 <div class="rol animated fadeIn Fast">
     <div class="col">
-        <form (ngSubmit)="save( f )" #f="ngForm">
-            <div class="form-group">
-                <label>FirebaseId</label>
-                <input type="text" class="form-control" disabled="disabled" placeholder="Firebase Id" [(ngModel)]="hero.id" name="id">
-                <small class="form-text text-muted">Este campo es autogenerado</small>
-            </div>
 
-            <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre Heroe" required [(ngModel)]="hero.name" name="name">
-            </div>
-
-            <div class="form-group">
-                <label>Poder</label>
-                <input type="text" class="form-control" placeholder="Poder Heroe" [(ngModel)]="hero.power" name="power">
-            </div>
-
-            <div class="form-group">
-                <label>Estado</label>
-                <br>
-                <button *ngIf="hero.alive" (click)="hero.alive = false" class="btn btn-outline-success w-50" type="button">
-                    <i class="fa fa-smile-wink"></i>
-                    Vivo
-                </button>
-
-                <button *ngIf="!hero.alive" (click)="hero.alive = true" class="btn btn-outline-danger w-50" type="button">
-                    <i class="fa fa-dizzy"></i>
-                    Muerto
-                </button>
-            </div>
-
-            <hr>
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary w-25">
-                    <i class="fa fa-save"></i>
-                    Guardar
-                </button>
-            </div>
-        </form>
     </div>
 </div>
