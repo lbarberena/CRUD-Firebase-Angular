@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 It consist in a simple CRUD of Heroes, stored on Firebase Realtime database.
 
 ## Demo
-You can interact with the [live Demo](https://crud-angular-course.web.app/heroes) on Firebase hosting.
+You can interact with the [live Demo](https://crud-angular-course.web.app) on Firebase hosting.
 
 ## First time cloning the repo?
 
